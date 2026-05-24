@@ -1,0 +1,14 @@
+INTERN ID: CITS1522
+NAME: G.SAI SHARANYA 
+NO.OF WEEKS : 6
+PRJECT NAME : HEALTH CARE PATIENT METRICS
+PROJECT SCOPE:
+This project focuses on analyzing healthcare patient data to extract meaningful insights about patients and hospital trends using data analysis and visualization techniques.
+
+The scope includes collecting and combining patient datasets (Train and Test files), cleaning and preprocessing the data by handling missing or incorrect values, and preparing it for analysis.
+
+It involves performing exploratory data analysis (EDA) to understand patient characteristics such as age distribution, gender distribution, disease frequency, and healthcare cost patterns. The project also includes generating visualizations like histograms and bar charts to clearly represent the data.
+
+A simple dashboard is developed using Streamlit to display graphs and basic insights in an interactive format.
+
+The project helps in understanding healthcare trends, identifying common diseases, analyzing patient demographics, and studying cost patterns, which can support better decision-making in healthcare systems.
