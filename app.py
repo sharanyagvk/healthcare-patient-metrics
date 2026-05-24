@@ -1,47 +1,54 @@
-
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-st.title("🏥 Healthcare Analytics Dashboard")
+st.title("🏥 Healthcare Patient Analytics Dashboard")
 
-folder = r"C:\Users\Lenova\Desktop\health care"
-files = os.listdir(folder)
+# Get files from deployed repo folder
+files = os.listdir(".")
 
-train_file = [f for f in files if "train" in f.lower()][0]
-test_file = [f for f in files if "test" in f.lower()][0]
+st.write("Files in repo:", files)
 
-train_df = pd.read_csv(os.path.join(folder, train_file))
-test_df = pd.read_csv(os.path.join(folder, test_file))
+train_file = None
+test_file = None
+
+for f in files:
+    if "train" in f.lower():
+        train_file = f
+    if "test" in f.lower():
+        test_file = f
+
+if not train_file or not test_file:
+    st.error("Train or Test file not found in GitHub repo")
+    st.stop()
+
+train_df = pd.read_csv(train_file)
+test_df = pd.read_csv(test_file)
 
 df = pd.concat([train_df, test_df], ignore_index=True)
 df = df.dropna()
 
-st.success("Data Loaded")
+st.success("Dataset Loaded Successfully")
 
-st.write("Rows:", df.shape[0])
+st.write("Shape:", df.shape)
 
 num_cols = df.select_dtypes(include=["int64", "float64"]).columns
 
-st.subheader("📊 Numeric Data Graphs")
-
-for col in num_cols[:5]:
+for col in num_cols[:4]:
+    st.subheader(f"📊 {col}")
     fig, ax = plt.subplots()
     ax.hist(df[col], bins=20)
-    ax.set_title(col)
     st.pyplot(fig)
 
 if "Gender" in df.columns:
-    st.subheader("👥 Gender Distribution")
+    st.subheader("Gender Distribution")
     fig, ax = plt.subplots()
     df["Gender"].value_counts().plot(kind="bar", ax=ax)
     st.pyplot(fig)
 
 if "Disease" in df.columns:
-    st.subheader("🦠 Disease Count")
+    st.subheader("Disease Distribution")
     fig, ax = plt.subplots()
     df["Disease"].value_counts().head(10).plot(kind="bar", ax=ax)
-    ax.tick_params(axis='x', rotation=45)
     st.pyplot(fig)
